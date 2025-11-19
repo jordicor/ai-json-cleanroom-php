@@ -713,7 +713,7 @@ $response = $client->post('https://api.openai.com/v1/chat/completions', [
         'Content-Type' => 'application/json',
     ],
     'json' => [
-        'model' => 'gpt-4',
+        'model' => 'gpt-5.1',
         'messages' => [
             ['role' => 'system', 'content' => 'You are a helpful assistant that outputs JSON.'],
             ['role' => 'user', 'content' => 'Generate user profile for Alice Johnson, age 30']
@@ -765,7 +765,7 @@ $response = $client->post('https://api.anthropic.com/v1/messages', [
         'Content-Type' => 'application/json',
     ],
     'json' => [
-        'model' => 'claude-3-5-sonnet-20241022',
+        'model' => 'claude-haiku-4-5',
         'max_tokens' => 1024,
         'messages' => [
             [
@@ -866,7 +866,7 @@ class AiJsonService
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . config('services.openai.key'),
         ])->post('https://api.openai.com/v1/chat/completions', [
-            'model' => 'gpt-4',
+            'model' => 'gpt-5.1',
             'messages' => [
                 ['role' => 'user', 'content' => $prompt]
             ]
@@ -967,7 +967,7 @@ class AiJsonProcessor
                     'Content-Type' => 'application/json',
                 ],
                 'json' => [
-                    'model' => 'claude-3-5-sonnet-20241022',
+                    'model' => 'claude-haiku-4-5',
                     'max_tokens' => 1024,
                     'messages' => [
                         ['role' => 'user', 'content' => $prompt]
@@ -1069,7 +1069,7 @@ function processMultipleAiRequests(array $prompts): array
                 'Authorization' => 'Bearer ' . getenv('OPENAI_API_KEY'),
             ],
             'json' => [
-                'model' => 'gpt-4',
+                'model' => 'gpt-5.1',
                 'messages' => [['role' => 'user', 'content' => $prompt]]
             ]
         ]);

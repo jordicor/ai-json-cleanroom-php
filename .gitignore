@@ -1,0 +1,34 @@
+# Composer
+/vendor/
+composer.lock
+
+# PHPUnit
+.phpunit.result.cache
+/coverage/
+phpunit.xml
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# OS
+Thumbs.db
+
+# Logs
+*.log
+
+# Temporary files
+/temp/
+/tmp/
+*.tmp
+
+# Examples output
+examples/output/
+examples/temp/
+
+# AI
+.claude

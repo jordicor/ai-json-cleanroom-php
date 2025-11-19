@@ -1,0 +1,1 @@
+{name: "Bob Builder", age: 35, email: "bob@example.com", active: true, preferences: {theme: "dark", notifications: false}}

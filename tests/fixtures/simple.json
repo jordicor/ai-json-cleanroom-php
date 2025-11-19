@@ -1,0 +1,7 @@
+{
+  "name": "Alice Johnson",
+  "age": 30,
+  "email": "alice@example.com",
+  "active": true,
+  "tags": ["python", "ai", "json"]
+}

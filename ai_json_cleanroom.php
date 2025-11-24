@@ -343,6 +343,7 @@ function sanitize_curly_quotes(string $text): string
     $out = [];
     $inString = false;
     $escape = false;
+    $quoteKind = null; // "straight" or "curly"
     $length = count($chars);
 
     for ($i = 0; $i < $length; $i++) {
@@ -360,15 +361,25 @@ function sanitize_curly_quotes(string $text): string
                 continue;
             }
             if ($ch === '"') {
-                $out[] = '"';
-                $inString = false;
+                if ($quoteKind === 'straight') {
+                    $out[] = '"';
+                    $inString = false;
+                    $quoteKind = null;
+                } else {
+                    $out[] = '\\"';
+                }
                 continue;
             }
             if (in_array($ch, DOUBLE_CURLY_QUOTES, true)) {
-                [$nextChar, ] = next_non_ws_mb($chars, $i + 1);
-                if ($nextChar === null || in_array($nextChar, [',', '}', ']', ':'], true)) {
-                    $out[] = '"';
-                    $inString = false;
+                if ($quoteKind === 'curly') {
+                    [$nextChar, ] = next_non_ws_mb($chars, $i + 1);
+                    if ($nextChar === null || in_array($nextChar, [',', '}', ']', ':'], true)) {
+                        $out[] = '"';
+                        $inString = false;
+                        $quoteKind = null;
+                    } else {
+                        $out[] = '\\"';
+                    }
                 } else {
                     $out[] = '\\"';
                 }
@@ -383,11 +394,13 @@ function sanitize_curly_quotes(string $text): string
             if ($ch === '"') {
                 $out[] = '"';
                 $inString = true;
+                $quoteKind = 'straight';
                 continue;
             }
             if (in_array($ch, DOUBLE_CURLY_QUOTES, true)) {
                 $out[] = '"';
                 $inString = true;
+                $quoteKind = 'curly';
                 continue;
             }
             if (in_array($ch, SINGLE_CURLY_QUOTES, true)) {
